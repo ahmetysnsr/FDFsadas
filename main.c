@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 18:39:14 by asari             #+#    #+#             */
-/*   Updated: 2025/12/04 21:33:53 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 01:12:13 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,9 @@
 
 
 
-//ESC VE X İÇİN SAFE ÇIKIŞ VERİLMESİ GEREKİYOR MEMORY FREELER VS. +
 //GEREKSİZ KÜTÜPHANE KONTROLU SAĞLANACAK
 //RENDER MAP DOSYASI NORMA UYGUN HALE GETİRİLECEK
 //MAKEFİLE YAZILACAK +?
-// MLX NULL KONTROL
-// COS SİN 
-// DOSYA ALINAN DOSYA İSMİ .fdf ile bitmesi gerekiyor. +
 // .h ifndef
 // Ekran ortalamaıyor grafiği
 
@@ -82,7 +78,7 @@ int handle_input(int keycode, t_fdf *fdf)
 
 int main(int argc, char **argv)
 {
-t_map	map;
+	t_map	map;
 	t_fdf	fdf;
 
 	if (argc != 2)

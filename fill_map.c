@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 14:14:38 by asari             #+#    #+#             */
-/*   Updated: 2025/12/04 16:41:32 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 01:20:03 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 t_point	**allocate_matrix(int height, int width)
 {
 	int		i;
-	int		j;
 	t_point	**matrix;
 
 	matrix = malloc(sizeof(t_point *) * height);
@@ -35,14 +34,6 @@ t_point	**allocate_matrix(int height, int width)
 				free(matrix[i]);
 			free(matrix);
 			return (NULL);
-		}
-		j = 0;
-		while (j < width)
-		{
-			matrix[i][j].is_valid = 0;
-			matrix[i][j].z = 0;
-			matrix[i][j].color = 0;
-			j++;
 		}
 		i++;
 	}

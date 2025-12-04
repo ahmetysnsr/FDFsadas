@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:51:28 by asari             #+#    #+#             */
-/*   Updated: 2025/12/04 17:47:37 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 00:55:15 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,27 @@ int	ft_ternary(int condition, int true_val, int false_val)
 	if (condition)
 		return (true_val);
 	return (false_val);
+}
+
+void	compute_view(t_map *map, t_view *v)
+{
+	v->win_w = 1200;
+	v->win_h = 800;
+	v->scale = cal_scale(map, v);
+	v->zscale = 0.5f;
+	v->angle = 0.523599f;
+	v->offset_x = v->win_w / 2;
+	v->offset_y = v->win_h / 2 - (map->height * v->scale) / 2;
+}
+
+void	draw_line_helper(t_img *img, int *curr, int *next, int color)
+{
+	t_bresenham	b;
+
+	b.x0 = curr[0];
+	b.y0 = curr[1];
+	b.x1 = next[0];
+	b.y1 = next[1];
+	b.color = color;
+	bresenham_img(img, &b);
 }

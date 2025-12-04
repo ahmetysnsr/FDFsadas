@@ -13,6 +13,7 @@ SRCS        = fill_map.c \
               render_map.c \
               utils.c \
               utils2.c \
+              utils3.c \
               GNL/get_next_line.c \
               GNL/get_next_line_utils.c
 
