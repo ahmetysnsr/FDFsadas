@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asari <asari>                              +#+  +:+       +#+        */
+/*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 20:51:28 by asari             #+#    #+#             */
-/*   Updated: 2025/12/02 20:51:28 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/04 15:48:55 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,19 @@ void	flush_gnl(int fd)
 		free(temp);
 		temp = get_next_line(fd);
 	}
+}
+
+int	check_extension(char *filename)
+{
+	int	len;
+
+	len = 0;
+	while (filename[len])
+		len++;
+	if (len < 4)
+		return (0);
+	if (filename[len - 4] == '.' && filename[len - 3] == 'f'
+		&& filename[len - 2] == 'd' && filename[len - 1] == 'f')
+		return (1);
+	return (0);
 }

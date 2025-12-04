@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asari <asari>                              +#+  +:+       +#+        */
+/*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 13:59:33 by asari             #+#    #+#             */
-/*   Updated: 2025/12/02 13:59:33 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/04 16:41:50 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	process_lines(int fd, int *height, int *width)
 {
 	char	*line;
 	char	**split;
+	int		curr_w;
 
 	*height = 0;
 	*width = 0;
@@ -57,12 +58,11 @@ int	process_lines(int fd, int *height, int *width)
 			break ;
 		clean_newline(line);
 		split = ft_split(line, ' ');
-		if (*height == 0)
-			*width = count_words(split);
-		else if (count_words(split) != *width)
+		if (split)
 		{
-			free_split_and_line(line, split);
-			return (0);
+			curr_w = count_words(split);
+			if (curr_w > *width)
+				*width = curr_w;
 		}
 		(*height)++;
 		free_split_and_line(line, split);
@@ -73,7 +73,7 @@ int	process_lines(int fd, int *height, int *width)
 int	get_map_data(int *height, int *width, char *filename)
 {
 	int	fd;
-	
+
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{

@@ -6,6 +6,7 @@ typedef struct s_point
 {
 	int z;
 	int color;
+    int is_valid;
 }	t_point;
 
 typedef struct s_map
@@ -33,6 +34,27 @@ typedef struct s_img {
     int   endian;
 } t_img;
 
+typedef struct s_fdf
+{
+    void    *mlx;
+    void    *win;
+    t_map   *map;
+}   t_fdf;
+
+typedef struct s_bresenham
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+	int	color;
+	int	dx;
+	int	dy;
+	int	sx;
+	int	sy;
+	int	err;
+}	t_bresenham;
+
 char	**ft_split(char *s, char c);
 void	free_split(char **split);
 void	clean_newline(char *line);
@@ -48,5 +70,6 @@ int		ft_atoi_hex(char *str);
 void 	free_matrix(t_map *map);
 void	flush_gnl(int fd);
 void	render_map(void *mlx, void *win, t_map *map);
+int	check_extension(char *filename);
 
 

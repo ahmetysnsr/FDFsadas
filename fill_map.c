@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asari <asari>                              +#+  +:+       +#+        */
+/*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 14:14:38 by asari             #+#    #+#             */
-/*   Updated: 2025/12/02 14:14:38 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/04 16:41:32 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 t_point	**allocate_matrix(int height, int width)
 {
 	int		i;
+	int		j;
 	t_point	**matrix;
 
 	matrix = malloc(sizeof(t_point *) * height);
@@ -34,6 +35,14 @@ t_point	**allocate_matrix(int height, int width)
 				free(matrix[i]);
 			free(matrix);
 			return (NULL);
+		}
+		j = 0;
+		while (j < width)
+		{
+			matrix[i][j].is_valid = 0;
+			matrix[i][j].z = 0;
+			matrix[i][j].color = 0;
+			j++;
 		}
 		i++;
 	}
@@ -55,16 +64,23 @@ static void	parse_point_data(char *s, t_point *point)
 static void	process_row(t_point *row_points, char **split, int width)
 {
 	int	x;
+	int	split_ended;
 
 	x = 0;
+	split_ended = 0;
 	while (x < width)
 	{
-		if (split[x])
+		if (!split_ended && split[x])
+		{
 			parse_point_data(split[x], &row_points[x]);
+			row_points[x].is_valid = 1;
+		}
 		else
 		{
+			split_ended = 1;
 			row_points[x].z = 0;
-			row_points[x].color = 0xFFFFFF;
+			row_points[x].color = 0;
+			row_points[x].is_valid = 0;
 		}
 		x++;
 	}

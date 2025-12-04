@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asari <asari>                              +#+  +:+       +#+        */
+/*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 18:39:14 by asari             #+#    #+#             */
-/*   Updated: 2025/12/04 00:41:28 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/04 16:31:18 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,68 @@
 
 
 
-//RENK KODLARI KONTROL EDİLECEK DOĞRU RENK KODLARI VERİLİYOR MU?
-//ESC VE X İÇİN SAFE ÇIKIŞ VERİLMESİ GEREKİYOR MEMORY FREELER VS.
+//ESC VE X İÇİN SAFE ÇIKIŞ VERİLMESİ GEREKİYOR MEMORY FREELER VS. +
 //GEREKSİZ KÜTÜPHANE KONTROLU SAĞLANACAK
 //RENDER MAP DOSYASI NORMA UYGUN HALE GETİRİLECEK
-//NOKTALAR ARASI ÇİZGİ ÇEKERKEN SOL VE ALT NOKTALARDA RENK KARMAŞASI !?
-//MAKEFİLE YAZILACAK
+//MAKEFİLE YAZILACAK +?
+// MLX NULL KONTROL
+// COS SİN 
+// DOSYA ALINAN DOSYA İSMİ .fdf ile bitmesi gerekiyor. +
+// .h ifndef
+int close_program(t_fdf *fdf)
+{
+    if (fdf->map)
+        free_matrix(fdf->map);
+    if (fdf->mlx)
+    {
+        if (fdf->win)
+            mlx_destroy_window(fdf->mlx, fdf->win);
+        mlx_destroy_display(fdf->mlx); 
+        free(fdf->mlx);
+    }
+    exit(0);
+    return (0);
+}
+
+int handle_input(int keycode, t_fdf *fdf)
+{
+    if (keycode == 65307)
+        close_program(fdf);
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_map   map;
+    t_fdf   fdf;
     int     height;
     int     width;
 
     if (argc != 2)
         return (1);
+    if (!check_extension(argv[1]))
+		return (1);
     if (!get_map_data(&height, &width, argv[1]))
         return (1);
-    if (!fill_map(&map, height, width, argv[1]))
+    if (!fill_map(&map, height, width, argv[1]))//burada hata alırsa üst taraftan kaynaklı memory leak
         return (1);
-    void *mlx = mlx_init();
-    if (!mlx) {
+    fdf.mlx = mlx_init();
+    if (!fdf.mlx)
+    {
         free_matrix(&map);
         return (1);
     }
-    void *win = mlx_new_window(mlx, 1200, 800, "FDF");
-    if (!win)
-	{
+    fdf.win = mlx_new_window(fdf.mlx, 1200, 800, "FDF - 42");
+    if (!fdf.win)
+    {
         free_matrix(&map);
-        free(mlx);
+        free(fdf.mlx);
         return (1);
     }
-    render_map(mlx, win, &map);
-    mlx_key_hook(win, (int (*)(int, void *))NULL, NULL);
-    mlx_hook(win, 17, 0, (int (*)(void *))NULL, NULL);
-    mlx_loop(mlx);
-    free_matrix(&map);
-    return 0;
+    fdf.map = &map;
+    render_map(fdf.mlx, fdf.win, &map);
+    mlx_hook(fdf.win, 2, 1L << 0, handle_input, &fdf);
+    mlx_hook(fdf.win, 17, 0, close_program, &fdf);
+    mlx_loop(fdf.mlx);
+    return (0);
 }
