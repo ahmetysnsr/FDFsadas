@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:35:02 by asari             #+#    #+#             */
-/*   Updated: 2025/12/04 19:34:32 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/04 23:58:32 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	project_iso(float x, float y, float z, t_view *v, int *sx, int *sy)
 	float	xr;
 	float	yr;
 
-	yr = (x + y) * sinf(v->angle) - z * v->zscale;
+	yr = ((x + y) * sinf(v->angle) ) - z;
 	xr = (x - y) * cosf(v->angle);
 	*sx = (int)(xr * v->scale) + v->offset_x;
 	*sy = (int)(yr * v->scale) + v->offset_y;
@@ -75,18 +75,57 @@ static void	bresenham_img(t_img *img, t_bresenham *b)
 	}
 }
 
-static void	compute_view(const t_map *map, t_view *v)
+static float	cal_scale(t_map *map, t_view *v)
+{
+	float	scale_x;
+	float	scale_y;
+	float	scale_z;
+	int		min;
+	int		max;
+	int		x;
+	int		y;
+
+	scale_x = (v->win_w * 0.40) / map->width;
+	scale_y = (v->win_h * 0.40) / map->height;
+	y = -1;
+	max = -2147483648;
+	min = 2147483647;
+	while (++y < map->height)
+	{
+		x = -1;
+		while (++x < map->width)
+		{
+			if (!map->matrix[y][x].is_valid)
+				continue;
+			if (map->matrix[y][x].z > max)
+				max = map->matrix[y][x].z;
+			if (map->matrix[y][x].z < min)
+				min = map->matrix[y][x].z;
+		}
+	}
+	if (max - min == 0)
+		scale_z = 1000.0;
+	else
+		scale_z = (v->win_h * 0.40) / (max - min);
+	if (scale_x < scale_y && scale_x < scale_z)
+		return (scale_x);
+	if (scale_y < scale_z)
+		return (scale_y);
+	return (scale_z);
+}
+static void	compute_view(t_map *map, t_view *v)
 {
 	float	base;
 	
 	v->win_w = 1200;
 	v->win_h = 800;
 	base = (map->width > map->height) ? map->width : map->height;
-	v->scale = (base == 0) ? 1.0f : (float)(v->win_w * 0.35f) / base;
-	v->zscale = 0.25f;
+	
+	v->scale = cal_scale(map, v);
+	v->zscale =	v->scale;
 	v->angle = 0.523599f;
 	v->offset_x = v->win_w / 2;
-	v->offset_y = v->win_h / 2;
+	v->offset_y = 350;
 }
 
 /*static void	draw_wireframe(void *mlx, void *win, t_map *map, t_view *v)
@@ -185,7 +224,7 @@ static void	process_map_loops(t_img *img, t_map *map, t_view *v)
 static void	draw_wireframe(void *mlx, void *win, t_map *map, t_view *v)
 {
 	t_img	img;
-
+		
 	img.img = mlx_new_image(mlx, v->win_w, v->win_h);
 	if (!img.img)
 		return ;
