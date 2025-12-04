@@ -71,5 +71,5 @@ void 	free_matrix(t_map *map);
 void	flush_gnl(int fd);
 void	render_map(void *mlx, void *win, t_map *map);
 int	check_extension(char *filename);
-
+int	ft_ternary(int condition, int true_val, int false_val);
 
