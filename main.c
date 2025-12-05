@@ -6,10 +6,9 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 18:39:14 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 01:12:13 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 03:21:40 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "fdf.h"
 #include "GNL/get_next_line.h"
@@ -18,14 +17,11 @@
 #include <unistd.h>
 #include "minilibx-linux/mlx.h"
 
-
-
 //GEREKSİZ KÜTÜPHANE KONTROLU SAĞLANACAK
 //RENDER MAP DOSYASI NORMA UYGUN HALE GETİRİLECEK
 //MAKEFİLE YAZILACAK +?
 // .h ifndef
 // Ekran ortalamaıyor grafiği
-
 
 static int	setup_map(t_map *map, char *filename)
 {
@@ -54,7 +50,8 @@ static int	setup_mlx(t_fdf *fdf)
 	}
 	return (1);
 }
-int close_program(t_fdf *fdf)
+
+int	close_program(t_fdf *fdf)
 {
 	if (fdf->map)
 		free_matrix(fdf->map);
@@ -62,21 +59,21 @@ int close_program(t_fdf *fdf)
 	{
 		if (fdf->win)
 			mlx_destroy_window(fdf->mlx, fdf->win);
-		mlx_destroy_display(fdf->mlx); 
+		mlx_destroy_display(fdf->mlx);
 		free(fdf->mlx);
 	}
 	exit(0);
 	return (0);
 }
 
-int handle_input(int keycode, t_fdf *fdf)
+int	handle_input(int keycode, t_fdf *fdf)
 {
-    if (keycode == 65307)
-        close_program(fdf);
-    return (0);
+	if (keycode == 65307)
+		close_program(fdf);
+	return (0);
 }
 
-int main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_map	map;
 	t_fdf	fdf;
@@ -92,7 +89,7 @@ int main(int argc, char **argv)
 	}
 	fdf.map = &map;
 	render_map(fdf.mlx, fdf.win, &map);
-	mlx_hook(fdf.win, 2, 1L << 0, handle_input, &fdf);
+	mlx_hook(fdf.win, 2, 1, handle_input, &fdf);
 	mlx_hook(fdf.win, 17, 0, close_program, &fdf);
 	mlx_loop(fdf.mlx);
 	return (0);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/05 03:24:18 by asari             #+#    #+#             */
+/*   Updated: 2025/12/05 03:27:05 by asari            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -79,7 +91,6 @@ void	render_map(void *mlx, void *win, t_map *map);
 int	    check_extension(char *filename);
 int	    ft_ternary(int condition, int true_val, int false_val);
 void	compute_view(t_map *map, t_view *v);
-void	draw_line_helper(t_img *img, int *curr, int *next, int color);
 float	cal_scale(t_map *map, t_view *v);
 void	img_put_pixel(t_img *img, int x, int y, int color);
 void	bresenham_img(t_img *img, t_bresenham *b);

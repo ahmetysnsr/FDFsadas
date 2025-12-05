@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:35:02 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 02:21:22 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 02:24:02 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	process_map_loops(t_img *img, t_map *map, t_view *v)
 {
 	int			i[2];
 	t_vector	curr;
-	t_vector	n;
 
 	i[1] = -1;
 	while (++i[1] < map->height)
@@ -68,17 +67,15 @@ static void	process_map_loops(t_img *img, t_map *map, t_view *v)
 		{
 			if (!map->matrix[i[1]][i[0]].is_valid)
 				continue ;
-			curr = project_iso(i[1], i[0], map->matrix[i[1]][i[0]].z, v);
+			curr = project_iso(i[0], i[1], map->matrix[i[1]][i[0]].z, v);
 			if (i[0] + 1 < map->width && map->matrix[i[1]][i[0] + 1].is_valid)
-			{
-				n = project_iso(i[0] + 1, i[1],map->matrix[i[1]][i[0] + 1].z, v);
-				trace_line(img, curr, n, map->matrix[i[1]][i[0]].color);
-			}
+				trace_line(img, curr, project_iso(i[0] + 1, i[1], \
+				map->matrix[i[1]][i[0] + 1].z, v), \
+				map->matrix[i[1]][i[0]].color);
 			if (i[1] + 1 < map->height && map->matrix[i[1] + 1][i[0]].is_valid)
-			{
-				n = project_iso(i[0], i[1] + 1, map->matrix[i[1] + 1][i[0]].z, v);
-				trace_line(img, curr, n, map->matrix[i[1]][i[0]].color);
-			}
+				trace_line(img, curr, project_iso(i[0], i[1] + 1, \
+				map->matrix[i[1] + 1][i[0]].z, v), \
+				map->matrix[i[1]][i[0]].color);
 		}
 	}
 }

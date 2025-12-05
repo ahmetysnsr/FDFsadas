@@ -35,7 +35,6 @@ $(NAME): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-# Temizlik kuralları
 clean:
 	rm -f $(OBJS)
 	@make clean -C $(MLX_PATH)
