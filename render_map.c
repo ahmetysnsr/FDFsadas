@@ -6,15 +6,14 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:35:02 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 03:47:52 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 04:45:16 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "minilibx-linux/mlx.h"
-#include <math.h>
 
-static void	trace_line(t_img *img, t_vector p1, t_vector p2, int color)
+void	trace_line(t_img *img, t_vector p1, t_vector p2, int color)
 {
 	t_bresenham	b;
 
@@ -54,7 +53,7 @@ void	bresenham_img(t_img *img, t_bresenham *b)
 	}
 }
 
-static void	process_map_loops(t_img *img, t_map *map, t_view *v)
+void	process_map_loops(t_img *img, t_map *map, t_view *v)
 {
 	int			i[2];
 	t_vector	curr;
@@ -80,7 +79,7 @@ static void	process_map_loops(t_img *img, t_map *map, t_view *v)
 	}
 }
 
-static void	draw_wireframe(void *mlx, void *win, t_map *map, t_view *v)
+void	draw_wireframe(void *mlx, void *win, t_map *map, t_view *v)
 {
 	t_img	img;
 

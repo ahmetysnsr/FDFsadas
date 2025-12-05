@@ -6,14 +6,14 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 00:47:11 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 03:46:57 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 04:45:28 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
 
-static int	get_z_range(t_map *map)
+int	get_z_range(t_map *map)
 {
 	int	x;
 	int	y;

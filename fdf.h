@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 03:24:18 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 03:47:22 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 03:52:13 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ float		cal_scale(t_map *map, t_view *v);
 void		img_put_pixel(t_img *img, int x, int y, int color);
 void		bresenham_img(t_img *img, t_bresenham *b);
 t_vector	project_iso(int x, int y, int z, t_view *v);
-int         my_abs(int num);
+int			my_abs(int num);
 
-#endif
+#endif 
