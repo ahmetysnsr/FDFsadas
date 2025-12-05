@@ -6,22 +6,13 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/02 18:39:14 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 03:21:40 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 03:45:07 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include "GNL/get_next_line.h"
-#include <stdio.h>
-#include <fcntl.h>
-#include <unistd.h>
 #include "minilibx-linux/mlx.h"
-
-//GEREKSİZ KÜTÜPHANE KONTROLU SAĞLANACAK
-//RENDER MAP DOSYASI NORMA UYGUN HALE GETİRİLECEK
-//MAKEFİLE YAZILACAK +?
-// .h ifndef
-// Ekran ortalamaıyor grafiği
+#include <stdlib.h>
 
 static int	setup_map(t_map *map, char *filename)
 {

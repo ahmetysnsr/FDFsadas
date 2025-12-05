@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 11:35:02 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 02:24:02 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 03:47:52 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ void	bresenham_img(t_img *img, t_bresenham *b)
 {
 	int	e2;
 
-	b->dx = abs(b->x1 - b->x0);
-	b->dy = -abs(b->y1 - b->y0);
+	b->dx = my_abs(b->x1 - b->x0);
+	b->dy = -my_abs(b->y1 - b->y0);
 	b->sx = ft_ternary(b->x0 < b->x1, 1, -1);
 	b->sy = ft_ternary(b->y0 < b->y1, 1, -1);
 	b->err = b->dx + b->dy;

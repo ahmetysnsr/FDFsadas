@@ -6,7 +6,7 @@
 /*   By: asari <asari@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 00:47:11 by asari             #+#    #+#             */
-/*   Updated: 2025/12/05 01:16:29 by asari            ###   ########.fr       */
+/*   Updated: 2025/12/05 03:46:57 by asari            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,11 @@ t_vector	project_iso(int x, int y, int z, t_view *v)
 	p.x = (int)(xr * v->scale) + v->offset_x;
 	p.y = (int)(yr * v->scale) + v->offset_y;
 	return (p);
+}
+
+int	my_abs(int num)
+{
+	if (num < 0)
+		return (-num);
+	return (num);
 }
